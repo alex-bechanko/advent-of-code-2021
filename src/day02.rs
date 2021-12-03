@@ -84,15 +84,6 @@ impl Submarine for Solution2Submarine {
     }
 }
 
-
-pub fn move_submarine(x:u32, y:u32, direction: Direction) -> (u32, u32) {
-    match direction {
-        Direction::Up(v) => (x, y - v),
-        Direction::Down(v) => (x, y + v),
-        Direction::Forward(v) => (x + v, y)
-    }
-}
-
 pub fn parse_direction(line: &str) -> Result<Direction, Day02Error> {
     let data = line.split(" ").collect::<Vec<&str>>();
 
