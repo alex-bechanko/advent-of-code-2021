@@ -21,7 +21,7 @@ mod tests;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Day01Error {
-    ParseFailure(String)
+    ParseFailure(String),
 }
 
 pub fn parse_depth(line: &str) -> Result<u32, Day01Error> {
@@ -37,30 +37,33 @@ pub fn parse(data: &str) -> Result<Vec<u32>, Day01Error> {
 }
 
 pub fn solution1(data: &Vec<u32>) -> String {
-    return data.iter()
+    return data
+        .iter()
         .zip(data.iter().skip(1))
-        .filter(|(x,y)| x < y)
+        .filter(|(x, y)| x < y)
         .count()
         .to_string();
 }
 
 pub fn solution2(data: &Vec<u32>) -> String {
-    let slide = data.iter()
+    let slide = data
+        .iter()
         .zip(data.iter().skip(1))
         .zip(data.iter().skip(2))
-        .map(|((x,y),z)| x + y + z);
+        .map(|((x, y), z)| x + y + z);
 
     return slide
         .clone()
         .zip(slide.skip(1))
-        .filter(|(x,y)| x < y)
+        .filter(|(x, y)| x < y)
         .count()
         .to_string();
 }
 
 pub fn solutions(data: &str) -> Result<(String, String), String> {
-    let masses = parse(data)
-        .map_err(|Day01Error::ParseFailure(mass)| format!("Failed to parse {} as a mass value", mass))?;
+    let masses = parse(data).map_err(|Day01Error::ParseFailure(mass)| {
+        format!("Failed to parse {} as a mass value", mass)
+    })?;
 
-    return Ok((solution1(&masses),solution2(&masses)));
+    return Ok((solution1(&masses), solution2(&masses)));
 }

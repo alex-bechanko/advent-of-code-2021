@@ -25,13 +25,19 @@ fn test_parse_depth() {
     assert_eq!(parse_depth("4"), Ok(4));
     assert_eq!(parse_depth("5"), Ok(5));
     assert_eq!(parse_depth("6"), Ok(6));
-    assert_eq!(parse_depth("hi"), Err(Day01Error::ParseFailure("hi".to_string())));
+    assert_eq!(
+        parse_depth("hi"),
+        Err(Day01Error::ParseFailure("hi".to_string()))
+    );
 }
 
 #[test]
 fn test_parse() {
     assert_eq!(parse("4\n5\n6"), Ok(vec![4, 5, 6]));
-    assert_eq!(parse("4\nhi\n6"), Err(Day01Error::ParseFailure("hi".to_string())));
+    assert_eq!(
+        parse("4\nhi\n6"),
+        Err(Day01Error::ParseFailure("hi".to_string()))
+    );
 }
 
 #[test]
@@ -49,5 +55,8 @@ fn test_solution2() {
 #[test]
 fn test_solutions() {
     assert_eq!(solutions(EXAMPLE), Ok(("7".to_string(), "5".to_string())));
-    assert_eq!(solutions("invalid"), Err("Failed to parse invalid as a mass value".to_string()));
+    assert_eq!(
+        solutions("invalid"),
+        Err("Failed to parse invalid as a mass value".to_string())
+    );
 }

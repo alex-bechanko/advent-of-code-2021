@@ -21,7 +21,7 @@ mod tests;
 
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Day02Error {
-    ParseFailure(String)
+    ParseFailure(String),
 }
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
@@ -32,24 +32,24 @@ pub enum Direction {
 }
 
 pub trait Submarine {
-    fn move_in_direction(&self, direction:Direction) -> Self;
+    fn move_in_direction(&self, direction: Direction) -> Self;
 }
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub struct Solution1Submarine {
-    x :u32,
-    y :u32,
+    x: u32,
+    y: u32,
 }
 
 impl Submarine for Solution1Submarine {
-    fn move_in_direction(&self, direction:Direction) -> Self {
+    fn move_in_direction(&self, direction: Direction) -> Self {
         let mut submarine = *self;
         match direction {
             Direction::Up(v) => {
                 submarine.y -= v;
-            },
+            }
             Direction::Down(v) => {
                 submarine.y += v;
-            },
+            }
             Direction::Forward(v) => {
                 submarine.x += v;
             }
@@ -61,22 +61,22 @@ impl Submarine for Solution1Submarine {
 
 #[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub struct Solution2Submarine {
-    x :u32,
-    y :u32,
-    aim :u32,
+    x: u32,
+    y: u32,
+    aim: u32,
 }
 
 impl Submarine for Solution2Submarine {
-    fn move_in_direction(&self, direction:Direction) -> Self{
+    fn move_in_direction(&self, direction: Direction) -> Self {
         let mut submarine = *self;
 
         match direction {
             Direction::Up(v) => {
                 submarine.aim -= v;
-            },
+            }
             Direction::Down(v) => {
                 submarine.aim += v;
-            },
+            }
             Direction::Forward(v) => {
                 submarine.x += v;
                 submarine.y += v * submarine.aim;
@@ -90,15 +90,16 @@ impl Submarine for Solution2Submarine {
 pub fn parse_direction(line: &str) -> Result<Direction, Day02Error> {
     let data = line.split(" ").collect::<Vec<&str>>();
 
-    let mag = data.get(1)
+    let mag = data
+        .get(1)
         .and_then(|s| s.parse::<u32>().ok())
         .ok_or(Day02Error::ParseFailure(line.to_string()))?;
 
-    match data.get(0).map(|&s|s) {
+    match data.get(0).map(|&s| s) {
         Some("forward") => Ok(Direction::Forward(mag)),
         Some("up") => Ok(Direction::Up(mag)),
         Some("down") => Ok(Direction::Down(mag)),
-        _ => Err(Day02Error::ParseFailure(line.to_string()))
+        _ => Err(Day02Error::ParseFailure(line.to_string())),
     }
 }
 
@@ -109,22 +110,29 @@ pub fn parse(data: &str) -> Result<Vec<Direction>, Day02Error> {
 }
 
 pub fn solution1(directions: &Vec<Direction>) -> String {
-    let submarine = directions.iter()
-        .fold(Solution1Submarine::default(), |submarine, &d| submarine.move_in_direction(d));
+    let submarine = directions
+        .iter()
+        .fold(Solution1Submarine::default(), |submarine, &d| {
+            submarine.move_in_direction(d)
+        });
 
     (submarine.x * submarine.y).to_string()
 }
 
 pub fn solution2(directions: &Vec<Direction>) -> String {
-    let submarine = directions.iter()
-        .fold(Solution2Submarine::default(), |submarine, &d| submarine.move_in_direction(d));
+    let submarine = directions
+        .iter()
+        .fold(Solution2Submarine::default(), |submarine, &d| {
+            submarine.move_in_direction(d)
+        });
 
     (submarine.x * submarine.y).to_string()
 }
 
 pub fn solutions(data: &str) -> Result<(String, String), String> {
-    let directions = parse(data)
-        .map_err(|Day02Error::ParseFailure(d)| format!("Failed to parse {} as a direction value", d))?;
+    let directions = parse(data).map_err(|Day02Error::ParseFailure(d)| {
+        format!("Failed to parse {} as a direction value", d)
+    })?;
 
-    return Ok((solution1(&directions),solution2(&directions)));
+    return Ok((solution1(&directions), solution2(&directions)));
 }
