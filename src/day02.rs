@@ -16,12 +16,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#[derive(Debug)]
+#[cfg(test)]
+mod tests;
+
+#[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Day02Error {
     ParseFailure(String)
 }
 
-#[derive(Debug, Clone, Copy)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Direction {
     Up(u32),
     Down(u32),
@@ -31,7 +34,7 @@ pub enum Direction {
 pub trait Submarine {
     fn move_in_direction(&self, direction:Direction) -> Self;
 }
-#[derive(Debug, Clone, Copy, Default)]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub struct Solution1Submarine {
     x :u32,
     y :u32,
@@ -56,7 +59,7 @@ impl Submarine for Solution1Submarine {
     }
 }
 
-#[derive(Debug, Clone, Copy, Default)]
+#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
 pub struct Solution2Submarine {
     x :u32,
     y :u32,
