@@ -17,6 +17,7 @@ along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 mod day01;
 mod day02;
+mod day03;
 
 use std::io::Read;
 use std::usize;
@@ -82,7 +83,7 @@ fn read_file(path: String) -> Result<String, ApplicationError> {
 
 fn advent_day_solution((day, data): (usize, String)) -> Result<(String, String), ApplicationError> {
     let solutions: Vec<&dyn Fn(&str) -> Result<(String, String), String>> =
-        vec![&day01::solutions, &day02::solutions];
+        vec![&day01::solutions, &day02::solutions, &day03::solutions];
 
     let solution = solutions
         .get(day - 1)
