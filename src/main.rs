@@ -16,6 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 mod day01;
+mod day02;
 
 use std::usize;
 use std::io::Read;
@@ -79,8 +80,9 @@ fn read_file(path: String) -> Result<String, ApplicationError> {
 }
 
 fn advent_day_solution((day, data): (usize, String)) -> Result<(String, String), ApplicationError> {
-    let solutions = vec![
-        day01::solutions
+    let solutions:Vec<&dyn Fn(&str) -> Result<(String,String), String>> = vec![
+        &day01::solutions,
+        &day02::solutions
     ];
 
     let solution = solutions.get(day-1)
