@@ -16,9 +16,6 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#[cfg(test)]
-mod tests;
-
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub enum Day01Error {
     ParseFailure(String),
@@ -66,4 +63,53 @@ pub fn solutions(data: &str) -> Result<(String, String), String> {
     })?;
 
     return Ok((solution1(&masses), solution2(&masses)));
+}
+
+#[cfg(test)]
+mod tests {
+
+    use super::*;
+
+    const EXAMPLE: &str = "199\n200\n208\n210\n200\n207\n240\n269\n260\n263";
+
+    #[test]
+    fn test_parse_depth() {
+        assert_eq!(parse_depth("4"), Ok(4));
+        assert_eq!(parse_depth("5"), Ok(5));
+        assert_eq!(parse_depth("6"), Ok(6));
+        assert_eq!(
+            parse_depth("hi"),
+            Err(Day01Error::ParseFailure("hi".to_string()))
+        );
+    }
+
+    #[test]
+    fn test_parse() {
+        assert_eq!(parse("4\n5\n6"), Ok(vec![4, 5, 6]));
+        assert_eq!(
+            parse("4\nhi\n6"),
+            Err(Day01Error::ParseFailure("hi".to_string()))
+        );
+    }
+
+    #[test]
+    fn test_solution1() {
+        let data = &parse(EXAMPLE).unwrap();
+        assert_eq!(solution1(data), "7");
+    }
+
+    #[test]
+    fn test_solution2() {
+        let data = &parse(EXAMPLE).unwrap();
+        assert_eq!(solution2(data), "5")
+    }
+
+    #[test]
+    fn test_solutions() {
+        assert_eq!(solutions(EXAMPLE), Ok(("7".to_string(), "5".to_string())));
+        assert_eq!(
+            solutions("invalid"),
+            Err("Failed to parse invalid as a mass value".to_string())
+        );
+    }
 }
