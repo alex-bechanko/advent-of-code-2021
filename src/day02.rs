@@ -139,7 +139,7 @@ mod tests {
 
     use super::*;
 
-    const EXAMPLE: &str = "forward 5\ndown 5\nforward 8\nup 3\ndown 8\nforward 2";
+    const EXAMPLE: &str = include_str!("../examples/day02.txt");
 
     #[test]
     fn test_parse_direction() {

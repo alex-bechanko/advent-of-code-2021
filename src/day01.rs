@@ -70,7 +70,7 @@ mod tests {
 
     use super::*;
 
-    const EXAMPLE: &str = "199\n200\n208\n210\n200\n207\n240\n269\n260\n263";
+    const EXAMPLE: &str = include_str!("../examples/day01.txt");
 
     #[test]
     fn test_parse_depth() {
