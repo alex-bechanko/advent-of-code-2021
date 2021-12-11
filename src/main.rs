@@ -19,6 +19,7 @@ mod day01;
 mod day02;
 mod day03;
 mod day04;
+mod day05;
 
 use std::io::Read;
 use std::usize;
@@ -88,6 +89,7 @@ fn advent_day_solution((day, data): (usize, String)) -> Result<(String, String),
         &day02::solutions,
         &day03::solutions,
         &day04::solutions,
+        &day05::solutions,
     ];
 
     let solution = solutions
