@@ -1,5 +1,3 @@
-use std::fmt::Debug;
-
 /*
 Advent of Code 2021 solutions
 Copyright (C) 2021  Alex Bechanko
@@ -17,6 +15,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
+
+use std::fmt::Debug;
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub struct LanternFish(usize);
